@@ -15,10 +15,11 @@ class CreateHafalansTable extends Migration
     {
         Schema::create('hafalan', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('index_ayat_dihafal');
             $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('ustadz_id');
             $table->unsignedBigInteger('santri_id');
-            $table->text('log_hafalan');
+            $table->unsignedBigInteger('sabaq_id');
             $table->timestamps();
 
             $table->foreign('kelas_id')->references('id')->on('kelas')
@@ -26,6 +27,8 @@ class CreateHafalansTable extends Migration
             $table->foreign('ustadz_id')->references('id')->on('ustadz')
                 ->onDelete('cascade');
             $table->foreign('santri_id')->references('id')->on('santri')
+                ->onDelete('cascade');
+            $table->foreign('sabaq_id')->references('id')->on('sabaq')
                 ->onDelete('cascade');
         });
     }
